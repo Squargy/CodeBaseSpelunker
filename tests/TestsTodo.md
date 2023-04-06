@@ -1,2 +1,3 @@
- - [ ] Identitfiera alla metoder i *f().g()...*
- - [ ] Identitfiera alla metoder i *f(g(...))*
+ - [x] Identitfiera alla metoder i *f().g()...*
+ - [x] Identitfiera alla metoder i *f(g(...))*
+ - [ ] Ignorera parametrar

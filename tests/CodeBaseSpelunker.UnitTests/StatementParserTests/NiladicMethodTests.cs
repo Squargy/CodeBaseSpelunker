@@ -1,35 +1,15 @@
 ﻿using CodeBaseSpelunker.Core;
 using CodeBaseSpelunker.Parser;
 
-namespace CodeBaseSpelunker.UnitTests;
+namespace CodeBaseSpelunker.UnitTests.StatementParserTests;
 
-public class StatementParserTests
+public class NiladicMethodTests
 {
     StatementParser statementParser;
 
-    public StatementParserTests()
+    public NiladicMethodTests()
     {
         statementParser = new();
-    }
-
-    [Fact]
-    public void ShouldCorrectlyIdentifyMethodCall()
-    {
-        const string line = "MethodCall()";
-
-        Statement statement = statementParser.Parse(line);
-
-        Assert.Equal(StatementType.MethodCall, statement.Type);
-    }
-
-    [Fact]
-    public void ShouldCorrectlyIdentifyNonMethodCall()
-    {
-        const string line = "int counter;";
-
-        Statement statement = statementParser.Parse(line);
-
-        Assert.Equal(StatementType.None, statement.Type);
     }
 
     [Theory]
@@ -49,27 +29,40 @@ public class StatementParserTests
     [Fact]
     public void ShouldCorrectlyIdentifyTwoChainedMethodCalls()
     {
-        const string line = "MethodCall().FollowingCall()";
+        const string line = "MethodName().FollowingName()";
 
         Statement statement = statementParser.Parse(line);
 
         Assert.Collection(statement.MethodNames,
-            item => Assert.Equal("MethodCall", item),
-            item => Assert.Equal("FollowingCall", item)
+            item => Assert.Equal("MethodName", item),
+            item => Assert.Equal("FollowingName", item)
             );
     }
 
     [Fact]
     public void ShouldCorrectlyIdentifyThreeChainedMethodCalls()
     {
-        const string line = "MethodCall().FollowingCall().FinalCall()";
+        const string line = "MethodName().FollowingName().FinalName()";
 
         Statement statement = statementParser.Parse(line);
 
         Assert.Collection(statement.MethodNames,
-            item => Assert.Equal("MethodCall", item),
-            item => Assert.Equal("FollowingCall", item),
-            item => Assert.Equal("FinalCall", item)
+            item => Assert.Equal("MethodName", item),
+            item => Assert.Equal("FollowingName", item),
+            item => Assert.Equal("FinalName", item)
+            );
+    }
+
+    [Fact]
+    public void ShouldCorrectlyIdentifyMethodCallWithInnerMethodCalls()
+    {
+        const string line = "MethodName(InnerMethodName())";
+
+        Statement statement = statementParser.Parse(line);
+
+        Assert.Collection(statement.MethodNames,
+            item => Assert.Equal("MethodName", item),
+            item => Assert.Equal("InnerMethodName", item)
             );
     }
 }
