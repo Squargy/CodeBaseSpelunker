@@ -43,11 +43,11 @@ public class StatementParserTests
     {
         Statement statement = statementParser.Parse(line);
 
-        Assert.Equal(expectedName, statement.MethodName);
+        Assert.Equal(expectedName, statement.MethodNames.Single());
     }
 
     [Fact]
-    public void ShouldCorrectlyIdentifyMultipleMethodCalls()
+    public void ShouldCorrectlyIdentifyTwoChainedMethodCalls()
     {
         const string line = "MethodCall().FollowingCall()";
 
@@ -56,6 +56,20 @@ public class StatementParserTests
         Assert.Collection(statement.MethodNames,
             item => Assert.Equal("MethodCall", item),
             item => Assert.Equal("FollowingCall", item)
+            );
+    }
+
+    [Fact]
+    public void ShouldCorrectlyIdentifyThreeChainedMethodCalls()
+    {
+        const string line = "MethodCall().FollowingCall().FinalCall()";
+
+        Statement statement = statementParser.Parse(line);
+
+        Assert.Collection(statement.MethodNames,
+            item => Assert.Equal("MethodCall", item),
+            item => Assert.Equal("FollowingCall", item),
+            item => Assert.Equal("FinalCall", item)
             );
     }
 }

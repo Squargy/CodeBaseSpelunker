@@ -1,0 +1,2 @@
+ - [ ] Identitfiera alla metoder i *f().g()...*
+ - [ ] Identitfiera alla metoder i *f(g(...))*

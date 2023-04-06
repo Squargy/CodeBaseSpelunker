@@ -3,5 +3,5 @@
 public class Statement
 {
     public StatementType Type { get; init; }
-    public string MethodName { get; init; } = "";
+    public List<string> MethodNames { get; init; } = new();
 }
