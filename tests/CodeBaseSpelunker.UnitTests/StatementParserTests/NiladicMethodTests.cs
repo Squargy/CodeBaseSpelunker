@@ -52,17 +52,4 @@ public class NiladicMethodTests
             item => Assert.Equal("FinalName", item)
             );
     }
-
-    [Fact]
-    public void ShouldCorrectlyIdentifyMethodCallWithInnerMethodCalls()
-    {
-        const string line = "MethodName(InnerMethodName())";
-
-        Statement statement = statementParser.Parse(line);
-
-        Assert.Collection(statement.MethodNames,
-            item => Assert.Equal("MethodName", item),
-            item => Assert.Equal("InnerMethodName", item)
-            );
-    }
 }

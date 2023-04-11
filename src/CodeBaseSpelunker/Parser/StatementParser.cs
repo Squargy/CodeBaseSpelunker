@@ -9,7 +9,6 @@ public class StatementParser
     {
         List<string> methodNames = new();
         StringBuilder methodNameBuilder = new();
-        bool insideParenthesis = false;
 
         foreach (var c in line)
         {
