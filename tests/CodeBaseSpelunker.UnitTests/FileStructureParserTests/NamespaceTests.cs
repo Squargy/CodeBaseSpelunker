@@ -13,30 +13,33 @@ public class NamespaceTests
 
     public NamespaceTests()
     {
-        parser = new();
+        structureParser = new();
     }
 
     [Fact]
     public void ShouldCorrectlyIdentifyNamespaceWithSemicolon()
     {
-        Namespace @namespace = structureParser.Parse(justTheLineWithSemiColon);
+        SyntaxObject @namespace = structureParser.Parse(justTheLineWithSemiColon);
 
-        Assert.Equal("CodeBaseSpelunker.UnitTests.FileStructureParserTests", Namespace.Name);
+        Assert.IsType<Namespace>(@namespace);
+        Assert.Equal("CodeBaseSpelunker.UnitTests.FileStructureParserTests", @namespace.Name);
     }
 
     [Fact]
     public void ShouldCorrectlyIdentifyNamespaceWithBracket()
     {
-        Namespace @namespace = structureParser.Parse(justTheLineWithBracket);
+        SyntaxObject @namespace = structureParser.Parse(justTheLineWithBracket);
 
-        Assert.Equal("CodeBaseSpelunker.UnitTests.FileStructureParserTests", Namespace.Name);
+        Assert.IsType<Namespace>(@namespace);
+        Assert.Equal("CodeBaseSpelunker.UnitTests.FileStructureParserTests", @namespace.Name);
     }
 
     [Fact]
     public void ShouldCorrectlyIdentifyNamespaceWithOutSemiColonOrBracket()
     {
-        Namespace @namespace = structureParser.Parse(justTheLineWithOutSemiColonOrBracket);
+        SyntaxObject @namespace = structureParser.Parse(justTheLineWithOutSemiColonOrBracket);
 
-        Assert.Equal("CodeBaseSpelunker.UnitTests.FileStructureParserTests", Namespace.Name);
+        Assert.IsType<Namespace>(@namespace);
+        Assert.Equal("CodeBaseSpelunker.UnitTests.FileStructureParserTests", @namespace.Name);
     }
 }

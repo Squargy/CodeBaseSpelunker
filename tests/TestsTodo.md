@@ -1,4 +1,6 @@
  - [x] Identitfiera alla metoder i *f().g()...*
  - [x] Identitfiera alla metoder i *f(g(...))*
  - [x] Identitfiera alla metoded f i *f(p)* där *p* parameter
- - [ ] Identify namespace
+ - [x] Identify namespace
+ - [ ] Identify classes
+ - [ ] Set class.namespace OR namespace.class correctly
