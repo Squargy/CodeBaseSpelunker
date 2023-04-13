@@ -2,5 +2,6 @@
  - [x] Identitfiera alla metoder i *f(g(...))*
  - [x] Identitfiera alla metoded f i *f(p)* där *p* parameter
  - [x] Identify namespace
- - [ ] Identify classes
+ - [x] Identify classes
+ - [x] Set class access modifier correctly
  - [ ] Set class.namespace OR namespace.class correctly

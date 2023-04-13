@@ -1,11 +1,15 @@
 ﻿using CodeBaseSpelunker.Core;
+using System.Text.RegularExpressions;
 
 namespace CodeBaseSpelunker.Parser;
 
 public class StructureParser
 {
+    public Namespace CurrentNamespace { get; set; } = Namespace.Global;
+
     public SyntaxObject Parse(string line)
     {
+        Regex space = new Regex("\\s+");
         line = line.Trim();
 
         if (line.StartsWith("namespace"))
@@ -17,8 +21,25 @@ public class StructureParser
 
         if (line.Contains("class "))
         {
+            var parts = space.Split(line);
+
             Class c = new Class();
-            c.Name = line.Substring(6).TrimEnd();
+            c.Name = parts.Last();
+
+            string ac = parts.First();
+            switch (ac)
+            {
+                case "class":
+                    c.AccessModifier = "private";
+                    break;
+                default:
+                    c.AccessModifier = ac;
+                    break;
+            };
+
+            CurrentNamespace.Classes.Add(c);
+            c.Namespace = CurrentNamespace;
+
             return c;
         }
 
