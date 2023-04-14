@@ -5,3 +5,19 @@
  - [x] Identify classes
  - [x] Set class access modifier correctly
  - [ ] Set class.namespace OR namespace.class correctly
+ - [ ] Correctly ignore single line comment
+ - [ ] Correctly ignore multiline comment
+ - [ ] Correctly ignore single line documentation
+ - [ ] Correctly ignore multiline documentation
+ - [ ] Set instance class when explicit
+ - [ ] Set instance class when implicit from method call
+ - [ ] Set instance class when implicit from property
+ - [ ] Add class properties correctly
+ - [ ] Add property return type
+ - [ ] Add method return type
+ - [ ] Parse and set class methods correctly
+ - [ ] Set method access modifiers correctly
+ - [ ] Handle static class
+ - [ ] Handle static method
+ - [ ] Parse method call stack (simple)
+ - [ ] Parse method call tree (simple w/ logical operators
