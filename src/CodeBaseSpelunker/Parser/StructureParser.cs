@@ -6,11 +6,32 @@ namespace CodeBaseSpelunker.Parser;
 public class StructureParser
 {
     public Namespace CurrentNamespace { get; set; } = Namespace.Global;
+    public bool InsideMultiLineComment { get; set; } = false;
 
     public SyntaxObject Parse(string line)
     {
         Regex space = new Regex("\\s+");
         line = line.Trim();
+
+        if (line.Contains("*/"))
+        {
+            InsideMultiLineComment = false;
+            return new IgnoredSyntaxObject("Multiline comment end");
+        }
+
+        if (InsideMultiLineComment)
+        {
+            return new IgnoredSyntaxObject("Inside comment");
+        }
+
+        if (line.StartsWith("/*"))
+        {
+            InsideMultiLineComment = true;
+            return new IgnoredSyntaxObject("Multiline comment start");
+        }
+
+        if (line.StartsWith("//"))
+            return new IgnoredSyntaxObject("Single line Comment");
 
         if (line.StartsWith("namespace"))
         {
@@ -43,6 +64,6 @@ public class StructureParser
             return c;
         }
 
-        return new InvalidSyntaxObject();
+        return new IgnoredSyntaxObject();
     }
 }

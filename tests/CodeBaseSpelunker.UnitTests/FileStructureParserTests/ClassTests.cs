@@ -1,6 +1,5 @@
 ﻿using CodeBaseSpelunker.Core;
 using CodeBaseSpelunker.Parser;
-using System.Security.Claims;
 
 namespace CodeBaseSpelunker.UnitTests.FileStructureParserTests;
 
