@@ -7,6 +7,7 @@ public class StructureParser
 {
     public Namespace CurrentNamespace { get; set; } = Namespace.Global;
     public bool InsideMultiLineComment { get; set; } = false;
+    public Class CurrentClass { get; set; }
 
     public SyntaxObject Parse(string line)
     {
@@ -62,6 +63,21 @@ public class StructureParser
             c.Namespace = CurrentNamespace;
 
             return c;
+        }
+
+        var startParam = line.IndexOf("(");
+        var endParam = line.IndexOf(")");
+        if (startParam < endParam)
+        {
+            var parts = line.Substring(0, startParam).Split(" ");
+
+            Method method = new Method();
+            method.Name = parts.Last();
+            method.ReturnType = parts.First();
+            method.Class = CurrentClass;
+            CurrentClass.Methods.Add(method);
+
+            return method;
         }
 
         return new IgnoredSyntaxObject();

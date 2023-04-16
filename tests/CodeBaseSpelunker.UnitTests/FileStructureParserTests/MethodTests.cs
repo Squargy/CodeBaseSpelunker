@@ -13,6 +13,7 @@ public class MethodTests
     public MethodTests()
     {
         structureParser = new();
+        structureParser.CurrentClass = new Class() { Name = "ClassName", Namespace = new Namespace { Name = "NamespaceName"} };
     }
 
     [Fact]
@@ -30,16 +31,16 @@ public class MethodTests
         SyntaxObject method = structureParser.Parse(lineWithMethod);
 
         Assert.IsType<Method>(method);
-        Assert.Equal("void", method.ReturnType);
+        Assert.Equal("void", (method as Method).ReturnType);
     }
 
     [Fact]
     public void ShouldSetMethodReturnTypeName()
     {
-        SyntaxObject method = structureParser.Parse(lineWithMethod);
+        SyntaxObject method = structureParser.Parse(lineWithMethodWithReturnType);
 
         Assert.IsType<Method>(method);
-        Assert.Equal("ReturnTypeName", method.ReturnType);
+        Assert.Equal("ReturnTypeName", (method as Method).ReturnType);
     }
 
     [Fact]
@@ -49,7 +50,7 @@ public class MethodTests
         SyntaxObject method = structureParser.Parse(lineWithMethod);
 
         Assert.IsType<Method>(method);
-        Assert.Equal(structureParser.CurrentClass, method.Class);
+        Assert.Equal(structureParser.CurrentClass, (method as Method).Class);
     }
 
     [Fact]
@@ -60,7 +61,7 @@ public class MethodTests
 
         Assert.IsType<Method>(method);
         Assert.Collection(structureParser.CurrentClass.Methods,
-                item => Assert.Equal(method, item)
+                item => Assert.Equal<Method>((Method)method, item)
             );
     }
 }
